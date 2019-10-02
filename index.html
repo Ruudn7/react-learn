@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <link rel="stylesheet" href="styles.css"> 
+    <meta charset="UTF-8">
+    <title>Pierwszy komponent w React.js</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+</head>
+ 
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    function MojKomponent({title, content, name}) {
+        return (
+            <div>
+                <dialog open>
+                    <h1>{`${title} iii ${name}`}</h1>
+                    <p>{content.join(',')}</p>
+                </dialog>
+            </div>
+        );
+    }
+    function MojKomponent2() {
+        return (
+            <div>
+                <h1>Witaj, świecie2222!</h1>
+                <h2>Jestem ambitna/y, więc przerabiam kurs React.js!</h2>
+            </div>
+        );
+    }
+
+    function myName(name) {
+        console.log(name)
+    }
+    ReactDOM.render(
+        <div className="d-flex">
+            <MojKomponent title={21} content={[1,2]} name='Sławek'/>
+            <MojKomponent2 />
+        </div>,
+        document.getElementById('app')
+    );
+  </script>
+</body>
+
+</html>
