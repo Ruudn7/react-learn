@@ -11,53 +11,139 @@
 
     <body> 
     <div id="app"></div>
-    <script type="text/babel">
-        function ContactList() {
-            <header class="ui fixed menu">
-                <nav class="ui container">
-                    <a href="#" class="header item">
-                        <img class="logo" src="https://typeofweb.com/wp-content/uploads/2017/08/cropped-typeofweb_logo-04-white-smaller-1-e1504359870362.png" />
-                        Lista kontaktów
-                    </a>
-                    <div class="header item">
-                        <button class="ui button">Dodaj</button>
+        <script type="text/babel">
+
+            const contactListArr = [
+                {
+                    login: "typeofweb1",
+                    name: "Lena",
+                    department: "JavaScript Developer"
+                }, {
+                    login: "typeofweb2",
+                    name: "Brian",
+                    department: "Human Resources"
+                }, {
+                    login: "typeofweb3",
+                    name: "Rick",
+                    department: "QA"
+                }
+            ]
+
+            class AppHeader extends React.Component {
+                render() {
+                    return (
+                        <div>
+                            <header className="ui fixed menu">
+                                <nav className="ui container">
+                                    <a href="#" className="header item">
+                                        <img className="logo" src="https://typeofweb.com/wp-content/uploads/2017/08/cropped-typeofweb_logo-04-white-smaller-1-e1504359870362.png" />
+                                        Lista kontaktów
+                                    </a>
+                                    <div className="header item">
+                                        <button className="ui button">Dodaj</button>
+                                    </div>
+                                </nav>
+                            </header>
+                        </div>
+                    )
+                }
+            }
+
+            class ContactItem extends React.Component {
+                render() {
+                    const { login, name, department } = this.props
+                    const imgUrl = `https://api.adorable.io/avatars/55/${login}.png`;
+                    return (
+                        <li className="item">
+                            <img src={imgUrl} className="ui mini rounded image" />
+                            <div className="content">
+                                <h4 className="header">{name}</h4>
+                                <div className="description">{department}</div>
+                            </div>
+                        </li>
+                    )
+                }
+            } 
+            
+
+            function ContactsList() {
+                return (
+                    <ul className="ui relaxed divided list selection">
+                    <RetrunContactItem />
+                    </ul>
+                );
+            }
+
+            class ReturnActionButtons extends React.Component {
+
+                constructor() {
+                    super()
+                    this.buttonMessages = [
+                        'jestem pierwszym buttonem',
+                        'a ja drugim',
+                        'kończę stawkę',
+                    ]
+                }
+
+                render() {
+                    return (
+                        this.GenerateActionList()
+                    )
+                }
+
+                ActionButton = (message, index) => {
+                    return (
+                        <button key={index} onClick={() => alert(message)}>Kliknij!</button>
+                    );
+                }
+
+                GenerateActionList = () => {
+                    const buttonArr: ActionButton[] = [];
+                    for (let i = 0; i < this.buttonMessages.length; i++) {
+                        buttonArr.push(
+                            this.ActionButton(this.buttonMessages[i], i)
+                        )
+                    }
+
+                    return buttonArr;
+                }
+
+            }
+
+            function RetrunContactItem() {
+                    let contactItmesArr = [];
+                    for (let i = 0; i < contactListArr.length; i++) {
+                        contactListArr[i].key = i; 
+                        contactItmesArr.push(
+                            <ContactItem
+                                login={contactListArr[i].login}
+                                name={contactListArr[i].name}
+                                department={contactListArr[i].department}
+                                key={i}
+                            />
+                        )     
+                    }
+                    return (contactItmesArr)
+                }
+            
+        
+            function App() {
+                return (
+                    <div>
+                        <AppHeader />
+                        <main className="ui main text container">
+                            <ContactsList />
+                        </main>
+                        <ReturnActionButtons />
                     </div>
-                </nav>
-            </header>
-            <main class="ui main text container">
-                <ul class="ui relaxed divided list selection">
-                    <li class="item">
-                    <img src="https://api.adorable.io/avatars/55/typeofweb1.png" class="ui mini rounded image" />
-                    <div class="content">
-                        <h4 class="header">Lena</h4>
-                        <div class="description">JavaScript Developer</div>
-                    </div>
-                    </li>
-                    <li class="item">
-                    <img src="https://api.adorable.io/avatars/55/typeofweb2.png" class="ui mini rounded image" />
-                    <div class="content">
-                        <h4 class="header">Brian</h4>
-                        <div class="description">Human Resources</div>
-                    </div>
-                    </li>
-                    <li class="item">
-                    <img src="https://api.adorable.io/avatars/55/typeofweb3.png" class="ui mini rounded image" />
-                    <div class="content">
-                        <h4 class="header">Rick</h4>
-                        <div class="description">QA</div>
-                    </div>
-                    </li>
-                </ul>
-            </main>
-        }
+                );
+            }
 
             ReactDOM.render(
-            <div className="d-flex">
-                <ContactList/>
-            </div>,
-            document.getElementById('app')
-        );
-    </script>
+                <App />,
+                document.getElementById('app')
+            );
+        </script>
     </body>
 
 </html>
