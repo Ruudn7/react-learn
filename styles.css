@@ -1,3 +1,9 @@
 .d-flex {
     display: flex;
 } 
+
+.showCount {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+}

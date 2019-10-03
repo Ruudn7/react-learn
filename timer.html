@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <meta charset="UTF-8">
+        <title>Timer</title>
+        <script src="https://unpkg.com/react/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    </head>
+
+    <body> 
+        
+
+
+
+        <div id="app"></div>
+        <script type="text/babel">
+
+            class CounterComponent extends React.Component {
+                constructor() {
+                    super();
+                    this.state = {counter: 0, plusCounter: 0, totalClick: 0, doubleClickCounter: 0};
+                }
+                
+                render() {
+                    return (
+                        <div>
+                            <button onClick={this.increment.bind(this)}>+</button>
+                            <div onDoubleClick={this.incrementDoubleClick.bind(this)}>{this.state.counter}</div>
+                            <button onClick={this.decrement.bind(this)}>-</button>
+
+                            <div className="w-100"></div><br />
+                            Plus<div>{this.state.plusCounter}</div>
+                            <br />
+                            Total<div>{this.state.totalClick}</div>
+                            <br />
+                            Double<div>{this.state.doubleClickCounter}</div>
+                            <br />
+                            
+                        </div>
+                    );
+                }
+                
+                increment() {
+                    this.setState({
+                        counter: this.state.counter + 1,
+                        totalClick: this.state.totalClick + 1,
+                        plusCounter: this.state.plusCounter + 1
+                    })
+                }
+                
+                decrement() {
+                    this.setState({
+                        counter: this.state.counter - 1,
+                        totalClick: this.state.totalClick + 1
+                    })
+                }
+
+                incrementDoubleClick() {
+                    this.setState({
+                        doubleClickCounter: this.state.doubleClickCounter + 1
+                    })
+                }
+            }
+
+            class DisplayInoutsDataCompontent extends React.Component {
+                constructor() {
+                    super();
+                    this.state = {name: '', surname: ''};
+                }
+                
+                render() {
+                    return (
+                        <div>
+                            <input type="text" placeholder="name" onInput={this.setName.bind(this)} />
+                            <input type="text" placeholder="surname" onInput={this.setSurname.bind(this)} />
+                            <div>
+                                {`${this.state.name} ${this.state.surname}`}
+                            </div>
+                        </div>
+                    );
+                }
+                
+                setName(e) {
+                    this.setState({
+                        name: e.target.value
+                    })
+                }
+                
+                setSurname(e) {
+                    this.setState({
+                        surname: e.target.value
+                    })
+                }
+
+            }
+
+        
+            function App() {
+                return (
+                    <div>
+                        <CounterComponent />
+                        <DisplayInoutsDataCompontent />
+                    </div>
+                );
+            }
+
+            ReactDOM.render(
+                <App />,
+                document.getElementById('app')
+            );
+        </script>
+    </body>
+
+</html>
