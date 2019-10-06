@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+        <meta charset="UTF-8">
+        <title>Timer</title>
+        <script src="https://unpkg.com/react/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    </head>
+
+    <body> 
+        
+        <div id="app"></div>
+        <script type="text/babel">
+
+            const allUsers = ['QWEEWQQWE', 'Kasia', 'Jacek', 'Marta', 'Tomek', 'Ania'];
+
+            class App extends React.Component {
+            
+                constructor() {
+                    super()
+
+                    this.state = {
+                        usersList: allUsers
+                    }
+                }
+
+                filterUsersArray(input) {
+                    const text = input.target.value;
+                    const filteredUsers = this.returnFilteredUsersList(text)
+                    this.setState({
+                        usersList: filteredUsers
+                    })
+                }
+
+                returnFilteredUsersList(text) {
+                    return allUsers.filter(el => el.toLowerCase().includes(text.toLowerCase()))
+                }
+
+                render() {
+                    return(
+                        <div>
+                            <input onChange={this.filterUsersArray.bind(this)} placeholder='filtred phrase' />
+                            <UsersList users={this.state.usersList}/>
+                        </div>
+                    )
+                }
+
+
+            };
+
+            const UsersList = ({users}) => {
+                return(
+                    <div>
+                        {users.map(user => <li key={user}> {user}</li>)}
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App />, document.getElementById("app"));
+            
+            
+
+        </script>
+    
+    </body>
+</html>
